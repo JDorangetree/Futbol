@@ -679,4 +679,4 @@ def update_table_posiciones(value, data):
 # )
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
