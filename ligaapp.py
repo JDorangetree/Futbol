@@ -15,6 +15,7 @@ from datetime import date, datetime
 import pymongo
 import os
 from dotenv import load_dotenv
+from whitenoise import WhiteNoise
 
 load_dotenv()
 mongodb = os.getenv('PASS')
@@ -22,6 +23,7 @@ mongodb = os.getenv('PASS')
 
 app = dash.Dash(__name__,    external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
+server.wsgi_app = WhiteNoise(server.wsgi_app, root='assets/')
 
 
 
