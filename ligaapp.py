@@ -40,7 +40,7 @@ def puntos_visitante(delta):
         return(1)
 
 def df_constructor_img():
-    client = pymongo.MongoClient("mongodb+srv://jnaranjo:{}@descenso.23jivof.mongodb.net/?retryWrites=true&w=majority".format(mongodb))
+    client = pymongo.MongoClient("mongodb+srv://jnaranjo:Samba1987!@descenso.23jivof.mongodb.net/?retryWrites=true&w=majority".format(mongodb))
     db = client['Futbol']
     mycol = db["Imagenes"]
     img = []
@@ -679,4 +679,4 @@ def update_table_posiciones(value, data):
 # )
 
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(debug=True)
