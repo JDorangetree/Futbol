@@ -1,0 +1,30 @@
+* {
+    font-family: italic small-caps bold 12px/30px;
+  }
+
+#app-title > * {
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+#season {
+    white-space: nowrap;
+}
+
+#howto-open {
+    white-space: nowrap;
+}
+
+#gh-link {
+    white-space: nowrap;
+}
+#transparent-loader-wrapper > div {
+    visibility: visible !important;
+}
+
+
+img[src*="#thumbnail"] {
+    width:200px;
+    height:100px;
+ }
