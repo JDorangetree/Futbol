@@ -18,7 +18,7 @@ mongodb = os.getenv('PASS')
 
 app = dash.Dash(__name__,    external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
-server.wsgi_app = WhiteNoise(server.wsgi_app, root='assets')
+server.wsgi_app = WhiteNoise(server.wsgi_app, root='assets/')
 
 
 
