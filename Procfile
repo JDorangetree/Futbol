@@ -1,1 +1,1 @@
-web: gunicorn ligaapp:server
+web: gunicorn ligaapp:server --timeout 300
