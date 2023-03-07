@@ -23,7 +23,7 @@ mongodb = os.getenv('PASS')
 
 app = dash.Dash(__name__,    external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
-server.wsgi_app = WhiteNoise(server.wsgi_app, root='assets/')
+server.wsgi_app = WhiteNoise(server.wsgi_app, root='assets')
 
 
 
@@ -453,7 +453,7 @@ header = dbc.Navbar(
                     dbc.Col(
                         html.Img(
                             id="logo",
-                            src="assets\ligabetplay.png", height="100px"), width=2),
+                            src="ligabetplay.png", height="100px"), width=2),
                     dbc.Col(
                         [
                             html.Div(
