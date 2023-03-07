@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 import numpy as np
-import dash_table
+from dash import dash_table
 from dash_table import DataTable
 import dash_core_components as dcc
 import dash_html_components as html
