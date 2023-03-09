@@ -61,7 +61,7 @@ def df_constructor_consolidado():
     mydoc = mycol.find(myquery)
     for doc in mydoc:
         partidos.append(doc)
-    df = pd.DataFrame(partidos, columns=['_id', 'Status', 'Date', 'Goal_1', 'Team_1', 'Goal_2', 'Team_2'])
+    df = pd.DataFrame(partidos, columns=['_id', 'Status', 'Date', 'Goal_1', 'Team_1', 'Goal_2', 'Team_2', 'id', 'Season'])
     df['Goal_1'] = df['Goal_1'].astype(int)
     df['Goal_2'] = df['Goal_2'].astype(int)
     df['delta'] = df['Goal_1'] - df['Goal_2']
@@ -99,8 +99,8 @@ def df_constructor_consolidado():
     df_resume['Mes'] = df_resume['Date'].dt.month
 
 
-    df_resume['Season'] = np.where(df_resume['Mes'] > 6, 'Clausura', np.where(df_resume['Año'] == 2020, 'Clausura', 'Apertura'))
-    df_resume['Season'] = df_resume['Año'].astype(str) + ' - ' + df_resume['Season']
+    df_resume['Season_id'] = np.where(df_resume['Mes'] > 6, 'Clausura', np.where(df_resume['Año'] == 2020, 'Clausura', 'Apertura'))
+    df_resume['Season_id'] = df_resume['Año'].astype(str) + ' - ' + df_resume['Season_id']
     return(df_resume)
 
 
@@ -203,7 +203,7 @@ def contador_2015(año):
 
 
 def df_constructor_descenso(df):
-    df1 = df[['Team', 'GC', 'GF', 'DIF', 'Points', 'Año', 'Season']].copy()
+    df1 = df[['Team', 'GC', 'GF', 'DIF', 'Points', 'Año', 'Season_id', 'Season']].copy()
     df1['count_match'] = 1
     df1['partidos 2021'] = df1['Año'].apply(contador_2021)
     df1['partidos 2022'] = df1['Año'].apply(contador_2022)
@@ -523,6 +523,7 @@ def update_table_descenso(value, data):
     dff_2 = dff[dff['Año'] == actual_year -1]
     dff_3 = dff[dff['Año'] == actual_year - 2]
     dff_4 = pd.concat([dff_1, dff_2, dff_3])
+    dff_4 = dff_4[dff_4['Season'] == 'Regular']
     dff_5 = team_filter(dff_4, 2023)
     dff_5 = dff_5.groupby('Team').sum().reset_index()
     menos_40 = dff_5.loc[dff_5['partidos 2022'] < 40]
@@ -574,8 +575,12 @@ def update_table_descenso(value, data):
 def update_table_posiciones(value, data):
     actual_date = date.today()
     actual_year = int(actual_date.strftime('%Y'))
+    #df_url = pd.read_csv('BD\\url.csv', encoding='latin', sep=';')
+    #df_url = df_constructor_img()
     dff = df.copy()
-    dff_2 = dff[dff['Season'] == '2023 - Apertura']
+    dff_2 = dff[dff['Año'] == actual_year]
+    dff_2 = dff_2[dff_2['Season'] == 'Regular']
+    print(dff_2.head())
     dff_2.loc[(dff_2['Points'] == 3), 'PG'] = 1  
     dff_2.loc[(dff_2['Points'] == 0), 'PG'] = 0
     dff_2.loc[(dff_2['Points'] == 1), 'PG'] = 0
@@ -611,7 +616,7 @@ def update_table_posiciones(value, data):
     State('datatable-reclasificacion', 'data')
 )
 
-def update_table_posiciones(value, data):
+def update_table_reclasificacion(value, data):
     actual_date = date.today()
     actual_year = int(actual_date.strftime('%Y'))
     dff = df.copy()
